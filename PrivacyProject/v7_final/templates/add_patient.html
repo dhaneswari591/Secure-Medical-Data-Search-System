@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow">
+      <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Add Patient Record</h4>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="{{ url_for('add_patient') }}" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="patient_name" class="form-label">Patient Name:</label>
+            <input type="text" class="form-control" name="patient_name" id="patient_name" required>
+          </div>
+          <div class="mb-3">
+            <label for="patient_info" class="form-label">Additional Info (optional):</label>
+            <textarea class="form-control" name="patient_info" id="patient_info" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="profile_photo" class="form-label">Profile Photo:</label>
+            <input type="file" class="form-control" name="profile_photo" id="profile_photo">
+          </div>
+          <button type="submit" class="btn btn-success w-100">Add Patient</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

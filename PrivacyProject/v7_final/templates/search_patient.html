@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-info text-white">
+          <h4 class="mb-0">Search Patient</h4>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{{ url_for('search_patient') }}">
+            <div class="mb-3">
+              <label for="search_type" class="form-label">Search By:</label>
+              <select name="search_type" id="search_type" class="form-select" required>
+                <option value="id">Patient ID</option>
+                <option value="name">Patient Name</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="query" class="form-label">Query:</label>
+              <input type="text" name="query" id="query" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

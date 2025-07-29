@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Search Diagnosis Records</h4>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{{ url_for('search_diagnosis') }}">
+            <div class="mb-3">
+              <label for="keyword" class="form-label">Enter Keyword:</label>
+              <input type="text" class="form-control" name="keyword" id="keyword" placeholder="e.g. Diabetes, Fever, Fracture" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

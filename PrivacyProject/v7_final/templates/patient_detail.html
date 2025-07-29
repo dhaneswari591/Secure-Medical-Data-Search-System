@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container my-4">
+  <!-- Print and Export Buttons -->
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary" onclick="window.print()">Print Patient Record</button>
+    <a href="{{ url_for('export_pdf_patient', patient_id=patient.id) }}" class="btn btn-outline-danger ms-2">Export as PDF</a>
+  </div>
+  
+  <h2>Patient Details: {{ patient.name }}</h2>
+  <div class="row mb-4">
+    <div class="col-md-4">
+      {% if patient.profile_photo %}
+      <img src="{{ url_for('uploaded_file', filename=patient.profile_photo.split('/')[-1]) }}" alt="Profile Photo" class="img-fluid rounded">
+      {% else %}
+      <img src="{{ url_for('static', filename='images/default-profile.png') }}" alt="Default Profile" class="img-fluid rounded">
+      {% endif %}
+    </div>
+    <div class="col-md-8">
+      <h4>Additional Info</h4>
+      <p>{{ decrypted_info if decrypted_info else "N/A" }}</p>
+      <a href="{{ url_for('add_diagnosis', patient_id=patient.id) }}" class="btn btn-success">Add Diagnosis</a>
+    </div>
+  </div>
+
+  <h3>Diagnosis Records</h3>
+  {% if diagnoses %}
+  <div class="accordion" id="diagnosisAccordion">
+    {% for diag in diagnoses %}
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading{{ diag.id }}">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ diag.id }}">
+          Diagnosis #{{ diag.id }}
+        </button>
+      </h2>
+      <div id="collapse{{ diag.id }}" class="accordion-collapse collapse" data-bs-parent="#diagnosisAccordion">
+        <div class="accordion-body">
+          <p>{{ diag.diagnosis }}</p>
+          {% if diag.files %}
+          <h5>Files:</h5>
+          <ul class="list-unstyled">
+            {% for file in diag.files %}
+            <li>
+              <a href="{{ url_for('uploaded_file', filename=file.filename) }}" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-file-earmark-image"></i> {{ file.filename }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p>No files available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>No diagnosis records found.</p>
+  {% endif %}
+</div>
+{% endblock %}

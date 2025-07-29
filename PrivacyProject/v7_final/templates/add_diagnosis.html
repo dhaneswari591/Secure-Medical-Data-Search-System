@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <h2>Add Diagnosis for Patient: {{ patient.name }}</h2>
+  <form method="POST" action="{{ url_for('add_diagnosis', patient_id=patient.id) }}" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="diagnosis_data" class="form-label">Diagnosis Data:</label>
+      <textarea class="form-control" name="diagnosis_data" id="diagnosis_data" rows="4" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="files" class="form-label">Upload Files (e.g., MRI, X-ray):</label>
+      <input type="file" class="form-control" name="files" id="files" multiple>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Diagnosis</button>
+  </form>
+</div>
+{% endblock %}

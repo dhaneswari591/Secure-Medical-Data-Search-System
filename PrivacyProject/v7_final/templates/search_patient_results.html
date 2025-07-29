@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <h2>Search Results for "{{ query }}" (Search by: {{ search_type }})</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="table-secondary">
+        <tr>
+          <th>ID</th>
+          <th>Patient Name</th>
+          <th>Additional Info</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for patient in patients %}
+        <tr>
+          <td>{{ patient.id }}</td>
+          <td>{{ patient.name }}</td>
+          <td>{{ patient.info if patient.info else "N/A" }}</td>
+          <td>
+            <a href="{{ url_for('patient_detail', patient_id=patient.id) }}" class="btn btn-info btn-sm">View Details</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

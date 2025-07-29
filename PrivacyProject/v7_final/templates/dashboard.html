@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">Patients</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>Patient Name</th>
+          <th>Profile Photo</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for patient in patients %}
+        <tr>
+          <td>{{ patient.id }}</td>
+          <td>{{ patient.name }}</td>
+          <td>
+            {% if patient.profile_photo %}
+            <img src="{{ url_for('uploaded_file', filename=patient.profile_photo) }}" alt="Profile Photo" class="img-thumbnail" style="width: 80px;">
+            {% else %}
+            <img src="{{ url_for('static', filename='images/default-profile.png') }}" alt="Default Photo" class="img-thumbnail" style="width: 80px;">
+            {% endif %}
+          </td>
+          <td>
+            <a href="{{ url_for('patient_detail', patient_id=patient.id) }}" class="btn btn-info btn-sm">View Details</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

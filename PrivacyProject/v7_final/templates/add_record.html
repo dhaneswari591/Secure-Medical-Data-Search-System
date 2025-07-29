@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Add Patient Record</h2>
+<form method="POST" action="{{ url_for('add_record') }}" enctype="multipart/form-data">
+    <label>Patient Name:</label>
+    <input type="text" name="patient_name" required>
+    <br>
+    <label>Patient Data:</label>
+    <textarea name="patient_data" required></textarea>
+    <br>
+    <label>Upload Files (MRI, X-ray, etc.):</label>
+    <input type="file" name="files" multiple>
+    <br>
+    <input type="submit" value="Add Record">
+</form>
+{% endblock %}

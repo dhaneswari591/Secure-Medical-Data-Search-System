@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Search Patient Records</h2>
+<form method="POST" action="{{ url_for('search') }}">
+    <label>Keyword:</label>
+    <input type="text" name="keyword" required>
+    <br>
+    <input type="submit" value="Search">
+</form>
+{% endblock %}

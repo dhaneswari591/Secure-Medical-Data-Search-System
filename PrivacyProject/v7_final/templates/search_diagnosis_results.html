@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <h2>Diagnosis Search Results for "{{ keyword }}"</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="table-secondary">
+        <tr>
+          <th>ID</th>
+          <th>Diagnosis</th>
+          <th>Patient ID</th>
+          <th>Files</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result in results %}
+        <tr>
+          <td>{{ result.id }}</td>
+          <td>{{ result.diagnosis }}</td>
+          <td>{{ result.patient_id }}</td>
+          <td>
+            {% if result.files %}
+            <ul class="list-unstyled">
+              {% for file in result.files %}
+              <li>
+                <a href="{{ url_for('uploaded_file', filename=file.filename) }}" class="btn btn-outline-secondary btn-sm">
+                  {{ file.filename }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% else %}
+            No files
+            {% endif %}
+          </td>
+          <td>
+            <a href="{{ url_for('patient_detail', patient_id=result.patient_id) }}" class="btn btn-info btn-sm">View Patient</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
